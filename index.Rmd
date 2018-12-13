@@ -1,7 +1,7 @@
 ---
-title: "Modul Analisis Data Sensoris"
+title: "Modul Pra-Lokakarya Analisis Data Sensoris"
 author: "Sensolution.ID"
-date: "December 12, 2018"
+date: '`r Sys.Date()`'
 output: 
   html_document:
     df_print: kable
@@ -10,10 +10,8 @@ output:
     theme: paper
     toc: yes
     toc_float: yes
-    number_section: true
+    number_section: false
 ---
-
-# Pendahuluan
 
 ## Sekilas tentang R
 [R](https://www.r-project.org/) merupakan bahasa pemrograman yang khusus diperuntukan untuk kalkulasi dan statistik. Saat ini R sangat populer khususnya di bidang Sains Data dikarenakan kemampuan dan fleksibilitasnya dalam mengolah data. R merupakan bahasa yang sangat menguntungkan untuk bidang ilmu sensoris dikarenakan telah tersedia beberapa paket khusus untuk analisis data sensoris, seperti misalnya `sensR` dan `SensoMineR`. Selain itu juga terdapat banyak paket penunjang lainnya  seperti `crossdes`, `BradleyTerry2`, dan `FactoMineR`. Dikarenakan kehandalaannya, R digunakan sebagai mesin kalkulasi oleh beberapa piranti analisis data sensoris komersial.
@@ -36,10 +34,16 @@ Meskipun R dapat langsung digunakan menggunakan RGUI atau terminal, fitur yang t
 
 Paket merupakan ekstensi yang dapat meningkatkan fungsionalitas dari R. Sebelumnya telah disinggung nama beberapa paket yang bermanfaat untuk analisis data sensoris. Paket-paket tersebut dapat dipasang dengan cara menjalankan kode berikut pada konsol RStudio:
 
+* Pemasangan paket satu per satu
+```r
+install.packages("nama_paket")
+```
+* Pemasangan paket sekaligus
 ``` r
 install.packages(c("crossdes", "BradleyTerry2", "sensR", "FactoMineR", "SensoMineR"))
 ```
-Namun, direkomendasikan untuk menuliskan kode R dalam bentuk skrip (disebut sebagai *R Script*) dan kemudian menjalankannya dibandingkan langsung menjalankan pada konsol. Tujuannya adalah agar kode tersebut dapat disimpan, dipelajari, dan digunakan pada waktu lainnya. *R Script* dapat dibuat dengan cara klik `File - New File - R Script` atau menekan kombinasi `Ctrl+Shift+N`. Silakan salin kode pemasangan paket diatas pada skrip, kemudian menjalankannya dengan cara klik`Run` (Ctrl+Enter). 
+
+Kami merekomendasikan untuk menuliskan kode R dalam bentuk skrip (disebut sebagai *R Script*) dan kemudian menjalankannya dibandingkan langsung menjalankan pada konsol. Tujuannya adalah agar kode tersebut dapat disimpan, dipelajari, dan digunakan pada waktu lainnya. *R Script* dapat dibuat dengan cara klik `File - New File - R Script` atau menekan kombinasi `Ctrl+Shift+N`. Silakan salin kode pemasangan paket diatas pada skrip, kemudian menjalankannya dengan cara klik`Run` (Ctrl+Enter). 
 
 ![](https://i.imgur.com/DVXjRCH.png)
 
@@ -52,18 +56,15 @@ library(sensR)
 library(FactoMineR)
 library(SensoMineR)
 ```
-## Rekomendasi sebelum workshop
+## Rekomendasi sebelum lokakarya
 
-Sebelum workshop dilaksanakan sebaiknya Anda telah berhasil memasang R, RStudio, dan paket-paket yang telah disebutkan pada bagian sebelum ini. Selain itu, Anda direkomendasikan untuk mempelajari hal-hal dasar mengenai R (apabila ini merupakan pertama kali Anda akan menggunakan R). Salah satu cara efektif untuk belajar R adalah **"Belajar R dengan menggunakan R"**. Berikut merupakan rekomendasi dari kami untuk belajar R dengan menggunakan R:
+Sebelum workshop dilaksanakan, Anda direkomendasikan untuk mempelajari hal-hal dasar mengenai R (apabila ini merupakan pertama kali Anda akan menggunakan R). Salah satu cara efektif untuk belajar R adalah **"Belajar R dengan menggunakan R"**. Berikut merupakan rekomendasi dari kami untuk belajar R dengan menggunakan R:
 
-+ Pasang paket `swirl` dengan cara `install.packages("swirl")`
-+ Setelah terpasang, jalankan `library(swirl)` pada konsol RStudio
-+ Jalankan `swirl()` dan ikuti instruksi yang diberikan
-+ Pasang dan ikuti materi "R programming", khususnya topik 1 hingga 7
-+ Anda dapat memasang dan mengikuti materi lainnya dengan cara megikuti instruksi pada pranala [ini](https://github.com/swirldev/swirl_courses).
-
-Silakan hubungi [info@sensolution.ID](mailto:info@sensolution.id) jika Anda mengalami kendala saat memasang R, RStudio, atau paket tambahan sebelum workshop dilaksanakan.
-
+* Pasang paket `swirl` dengan cara `install.packages("swirl")`
+* Setelah terpasang, jalankan `library(swirl)` pada konsol RStudio
+* Jalankan `swirl()` dan ikuti instruksi yang diberikan
+* Pasang dan ikuti materi "R programming", khususnya topik 1 hingga 7
+* Anda dapat memasang dan mengikuti materi lainnya dengan cara megikuti instruksi pada pranala [ini](https://github.com/swirldev/swirl_courses).
 
 ## Sekilas tentang SenseHub
 
@@ -88,107 +89,12 @@ SenseHub merupakan aplikasi web terintegrasi untuk analisis sensoris yang dikemb
 - SenseHub - Basic merupakan versi demo dengan fitur yang terbatas. SenseHub - Basic dapat diakses di [s.id/sensehub_basic](https://s.id/sensehub_basic)
 - SenseHub - Pro merupakan versi penuh dengan fitur lengkap. SenseHub - Pro dapat diakses di [sensehub.sensolution.id](https://sensehub.sensolution.id)
 
-# Desain Eksperimen
-Evaluasi sensori menggunakan panelis manusia sebagai instrumen yang sangat dipengaruhi oleh berbagai faktor psikologi dan fisiologi. Oleh karena itu, dalam evaluasi sensori penting untuk merancang desain penelitian dengan baik sehingga dapat mengurangi bias selama evaluasi sensori.
+## Penutup
 
-## Bias pada evaluasi sensori
-Beberapa bias yang dapat terjadi selama evaluasi sensori antara lain 
-a. Faktor psikologi : 
-*  Efek urutan (*order effect*) : Kecenderungan panelis untuk memberi skor lebih tinggi pada sampel yang disajikan pertama 
-*  Efek kontras dan konvergen (*contrast and convergence effect*) : Jika dua sampel yang disajikan menunjukkan perbedaan yang besar, panelis cenderung melebih-lebihkan penilaian. Sedangkan jika sampel serupa disajikan dalam satu set sampel, panelis cenderung menilai kecil perbedaan sampel tersebut.
+Pada saat lokakarya akan digunakan aplikasi R dan SenseHub untuk menyelesaikan studi kasus. Oleh karena itu, sangat diharapkan Anda telah berhasil memasang R, RStudio, beserta paket-paket yang diperlukan sebelum lokakarya dilaksanakan. Selain itu, Anda juga akan diberikan akses untuk SenseHub Pro selama lokakarya berlangsung. Demi kepentingan itu, kami memerlukan data nama beserta email yang Anda miliki untuk kelancaran akses ke SenseHub Pro tersebut. Terakhir, silakan bawa laptop beserta *charger* demi kelancaran saat lokakarya berlangsung. Jangan ragu untuk mengubungi surel [info@sensolution.id](mailto:info@sensolution.id) jika Anda memiliki pertanyaan atau kendala. Salam hangat dan sampai jumpa!
 
-b. Faktor fisiologi :
-* Adaptasi (*carry-over effect*) : Penurunan sensitivitas indra akibat pengulangan stimulus.
+<hr>
 
-## Desain untuk uji diskriminatif
-Rancang percobaan untuk uji diskriminatif dapat dilakukan dengan menggunakan R studio.
-
-## Desain untuk uji deskriptif
-Rancang percobaan untuk uji deskriptif dapat dilakukan dengan menggunakan SenseHub yang dapat diakses melalui link berikut : 
-
-Tampilan Pengaturan Parameter Rancangan Percobaan pada SenseHub dapat dilihat sebagai berikut : 
-
-![](https://i.imgur.com/NOT4nex.jpg)
-
-Langkah-langkah untuk merancang percobaan pada uji deskriptif : Klik pada tab *'Rancangan percobaan'* dan akan muncul 'Pengaturan Parameter' yang dibutuhkan. Masukkan jumlah sampel, nama sampel, jumlah panelis, dan jumlah atribut. 
-Kemudian klik 'Rancang' dan akan ditampilkan Tabel  rancangan percobaan yang telah mengikuti William Latin's Square Design. 
-
-![](https://i.imgur.com/hFWHTZ0.jpg)
-
-Pada tampilan hasil Rancangan Percobaan terdapat dua tab yang diperoleh antara lain :
-1. Tabel Rancangan : Berisi urutan penyajian sampel telah diacak dengan seimbang. Urutan penyajian tersebut dapat diunduh dengan cara klik *'Unduh tabel'* yang tersedia dalam format CSV dan Excel.
-2. Format Tabulasi : Berisi format tabulasi data hasil evaluasi sensori yang telah sesuai dengan format tabulasi pada SenseHub. Format tabulasi data dapat diunduh dengan cara klik *'Unduh Tabel'* yang tersedia dalam format CSV dan Excel.
-
-## Scales in descriptive test
-- William Latin's Square Design
-
-## Time to practice!
-a. Uji diskriminatif
-b. Uji deskriptif
-Akan dilakukan uji deskriptif terhadap 4 sampel wafer (Tango, Selamat, Nissin, Loacker) dengan melibatkan 8 panelis terlatih.
-Atribut yang akan dievaluasi antara lain : rasa coklat, rasa manis, rasa pahit, rasa vanila, kekokohan, kekerasan, kerenyahan, kekasaran, aroma susu, aroma coklat, aroma vanila, aftertaste, dan warna cokelat. 
-Buat rancangan percobaan dari kasus tersebut dengan menggunakan Rstudio! 
-
-# Analysis for discriminative test
-
-Panelist | Sample | Order | j~1~ | ... | j~n~
----|---|---|---|---|---
-c|d|
-
-# Analisis Uji Deskriptif
-## Prinsip
-## Tabulasi dan format data
-
-
-| Column 1 | Column 2 | Column 3 |
-| -------- | -------- | -------- |
-| Text     | Text     | Text     |
-
-## Analisis univariat: ANOVA
-
-
-> **Model:** Atribut ~ Panelis + ==Sampel== + Sesi + Panelis:Sampel + Panelis:Sesi + Sampel:Sesi
-
-## Analisis multivariat: PCA
-
-## Praktek: Analisis data QDA menggunakan R
-## Praktek: Analisis data QDA menggunakan SenseHub
-
-# Pengujian Kinerja Panel
-## Kriteria Penting dari Panelis 
-Panelis sensori terdiri dari orang-orang yang memiliki kemampuan dalam melakukan evaluasi sensoris secara objektif pada suatu produk pangan. Kriteria panelis umumnya mencakup 3 hal diantaranya:
-
-1. Kemampuan diskriminasi - apakah panelis memiliki kemampuan dalam menemukan perbedaan antar sampel
-2. Kemampuan *repeatability* - jika pengujian diulang dengan panel yang sama dan sampel yang sama, apakah panelis mampu memberikan penilaian yang sama atau mirip
-3. Kemampuan *reproducibility* - apakah panelis memberikan penilaian yang yang sama atau mirip dengan rata-rata penilaian oleh panel secara keseluruhan
-
-Kinerja panel yang buruk akan menyebabkan *dissagrement error* dalam menilai produk. Terdapat 4 pola *dissagrement error* yang dapat terjadi pada panelis, diantaranya: 
-* Magnitude error - panelis menilai dengan skala yang lebih besar atau lebih kecil dari panel 
-* Crossover error - panelis menilai produk atau serangkaian produk berlawanan dari penilaian panelnya
-* Non-discriminator error - panelis menilai produk dalam satu set sama sedangkan panelnya menilai produk tersebut berbeda
-* Non-perceiver error - panelis tidak merasakan adanya atribut dalam produk dan memberi nilai "0" untuk semua produk
-![](https://i.imgur.com/5xjF3ID.jpg)
-Gambar Ilustrasi panelis memberi nilai dengan 4 tipe error dari *disagreement error* 
-
-## Metode Identifikasi Peforma Panelis
-* Sensitivitas Panelis
-Panelis idealnya memberikan penilaian yang sama untuk pengulangan produk yang sama dan memberikan nilai berbeda untuk produk yang berbeda. Pengukuran sensitivitas panelis dapat menggunakan One-way ANOVA.
-* Reproducibility
-
-## Praktek Uji Performa Panelis
-Perusahaan A (produsen biskuit) menggunakan 14 panelis terlatih untuk melakukan evaluasi kompetitor, konsep dan prototype produk baru. Profiling produk dilakukan terhadap 9 macam biskuit komersial. Dikarenakan output data yang diperoleh memberikan pengaruh terhadap pengambilan keputusan, panel leader menerapkan evaluasi performa panelis selama proses evaluasi produk berlangsung.
-
-Lakukanlah analisis performa panelis dari data yang telah tersedia "biscuit_Performa panelis.csv" menggunakan senseHub
-
-Berdasarkan data hasil analisis, performa panelis dievaluasi dengan kriteria 
-1. kemampuan diskriminasi - minimal 75% atribut sensori signifikan berbeda antara sampel dari seluruh atribut  
-2. *repeatability* 
-3. *reproducibility*. 
-
-
-
-
-
-
-
-
+```{r, echo=FALSE}
+knitr::include_graphics("logo_sensolution.id.png")
+```
