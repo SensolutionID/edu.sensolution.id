@@ -101,7 +101,7 @@ class: inverse, center, middle
 
 ---
 
-## R + RStudio + paket
+# R + RStudio + paket
 
 .pull-left[
 **R**

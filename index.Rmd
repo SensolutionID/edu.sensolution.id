@@ -64,7 +64,7 @@ Sebelum workshop dilaksanakan, Anda direkomendasikan untuk mempelajari hal-hal d
 * Setelah terpasang, jalankan `library(swirl)` pada konsol RStudio
 * Jalankan `swirl()` dan ikuti instruksi yang diberikan
 * Pasang dan ikuti materi "R programming", khususnya topik 1 hingga 7
-* Anda dapat memasang dan mengikuti materi lainnya dengan cara megikuti instruksi pada pranala [ini](https://github.com/swirldev/swirl_courses).
+* Anda dapat memasang dan mengikuti materi lainnya dengan cara mengikuti instruksi pada pranala [ini](https://github.com/swirldev/swirl_courses).
 
 ## Sekilas tentang SenseHub
 
@@ -91,7 +91,11 @@ SenseHub merupakan aplikasi web terintegrasi untuk analisis sensoris yang dikemb
 
 ## Penutup
 
-Pada saat lokakarya akan digunakan aplikasi R dan SenseHub untuk menyelesaikan studi kasus. Oleh karena itu, sangat diharapkan Anda telah berhasil memasang R, RStudio, beserta paket-paket yang diperlukan sebelum lokakarya dilaksanakan. Selain itu, Anda juga akan diberikan akses untuk SenseHub Pro selama lokakarya berlangsung. Demi kepentingan itu, kami memerlukan data nama beserta email yang Anda miliki untuk kelancaran akses ke SenseHub Pro tersebut. Terakhir, silakan bawa laptop beserta *charger* demi kelancaran saat lokakarya berlangsung. Jangan ragu untuk mengubungi surel [info@sensolution.id](mailto:info@sensolution.id) jika Anda memiliki pertanyaan atau kendala. Salam hangat dan sampai jumpa!
+Pada saat lokakarya akan digunakan aplikasi R dan SenseHub untuk menyelesaikan studi kasus. Oleh karena itu, sangat diharapkan Anda telah berhasil memasang R, RStudio, beserta paket-paket yang diperlukan sebelum lokakarya dilaksanakan. 
+
+Anda akan diberikan akses untuk SenseHub Pro selama lokakarya berlangsung. Demi kepentingan itu, kami memerlukan data nama beserta email yang Anda miliki untuk kelancaran akses ke SenseHub Pro tersebut. Data yang Anda berikan juga akan digunakan untuk penerbitan sertifikat. Anda dapat mengisi informasi tersebut melalui formulir [ini](https://goo.gl/forms/MXoUBHA9RmzzPC1v2).
+
+Terakhir, silakan bawa laptop beserta *charger* demi kelancaran saat lokakarya berlangsung. Pastikan Anda memiliki koneksi internet saat lokakarya dilaksanakan. Jangan ragu untuk mengubungi surel [info@sensolution.id](mailto:info@sensolution.id) jika Anda memiliki pertanyaan atau kendala. Salam hangat dan sampai jumpa!
 
 <hr>
 
