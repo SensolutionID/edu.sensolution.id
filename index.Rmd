@@ -1,13 +1,16 @@
 ---
-title: "Modul"
+title: "Modul Analisis Data Sensoris"
 author: "Sensolution.ID"
 date: "December 12, 2018"
 output: 
   html_document:
-    toc: true
-    toc_depth: 3
-    toc_float: true
-    theme: flatly
+    df_print: kable
+    fig_caption: yes
+    highlight: pygments
+    theme: paper
+    toc: yes
+    toc_float: yes
+    number_section: true
 ---
 
 # Pendahuluan

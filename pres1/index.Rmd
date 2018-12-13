@@ -6,6 +6,7 @@ date: "2016/12/12 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
     lib_dir: libs
+    css: [default, middlebury-fonts, sensolutionid-css.css]
     nature:
       highlightStyle: github
       highlightLines: true
@@ -16,23 +17,10 @@ output:
 options(htmltools.dir.version = FALSE)
 ```
 
-background-image: url(https://upload.wikimedia.org/wikipedia/commons/b/be/Sharingan_triple.svg)
-
-???
-
-Image credit: [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Sharingan_triple.svg)
-
----
-class: center, middle
-
-# xaringan
-
-### /ʃæ.'riŋ.ɡæn/
-
 ---
 class: inverse, center, middle
 
-# Get Started
+# Pendahuluan
 
 ---
 
