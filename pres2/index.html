@@ -3,7 +3,7 @@
   <head>
     <title>Lokakarya Analisis Data Sensoris</title>
     <meta charset="utf-8">
-    <meta name="author" content="Sensolution.ID" />
+    <meta name="author" content="Bogor, 19-20 Desember 2018" />
     <script src="libs/htmlwidgets/htmlwidgets.js"></script>
     <script src="libs/jquery/jquery.min.js"></script>
     <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
@@ -21,7 +21,7 @@ class: center, middle, inverse, title-slide
 
 # Lokakarya Analisis Data Sensoris
 ## Departemen ITP, Institut Pertanian Bogor
-### Sensolution.ID
+### Bogor, 19-20 Desember 2018
 
 ---
 
@@ -30,13 +30,14 @@ class: center, middle, inverse, title-slide
 
 
 
+---
 class: inverse, center, middle
 
 # Perangkat lunak
 
 ---
 
-# R + RStudio + paket
+## R + RStudio + paket
 
 .pull-left[
 **R**
@@ -66,34 +67,37 @@ class: inverse, center, middle
 ``` r
 install.packages(c("crossdes", "BradleyTerry2", "sensR", "FactoMineR", "SensoMineR"))
 ```
+
 ---
 ## SenseHub
 
-.pull-left[
 - Aplikasi untuk analisis sensoris yang dikembangkan oleh [Sensolution.ID](https://sensolution.id)
 - Dikembangkan dengan basis bahasa R
-- Tanpa pemasangan di komputer
+- Bekerja di *server* secara *cloud*, bisa diakses dimana saja tanpa pemasangan di komputer
 - Meliputi metode sensoris konvensional dan mutakhir
 - 21+ metode analisis, akan terus bertambah!
 - Dalam Bahasa Indonesia
 - Tampilan sederhana dan intuitif
+
+--
+
+.pull-left[
+ **Versi:**
+- **SenseHub - Basic** merupakan versi demo dengan fitur yang terbatas. SenseHub - Basic dapat diakses di [s.id/sensehub_basic](https://s.id/sensehub_basic)
+- **SenseHub - Pro** merupakan versi penuh dengan fitur lengkap. SenseHub - Pro dapat diakses di [sensehub.sensolution.id](https://sensehub.sensolution.id)
 ]
 
+--
+
 .pull-right[
-![]("https://i.imgur.com/Gc1BePy.jpg")
+**Registrasi SenseHub - Pro:**
+1. Buka laman [sensehub.sensolution.id](https://sensehub.sensolution.id)
+2. Registrasi dengan mengisi alamat surel dan kata sandi yang diinginkan
+3. Verifikasi dengan cara klik pranala yang dikirimkan melalui surel
 ]
- 
-.pull-left[
- &lt;hr&gt; 
- 
- **Versi:**
- 
-- SenseHub - Basic merupakan versi demo dengan fitur yang terbatas. SenseHub - Basic dapat diakses di [s.id/sensehub_basic](https://s.id/sensehub_basic)
-- SenseHub - Pro merupakan versi penuh dengan fitur lengkap. SenseHub - Pro dapat diakses di [sensehub.sensolution.id](https://sensehub.sensolution.id)
- ]
- 
+
 ---
-## SenseHub
+## Fitur SenseHub
 | Kategori             | Fitur                                                                                                                                                                                    |
 |----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Rancangan penelitian | Percangan penelitian (William Latin Square Design)                                                                                                                                       |
@@ -104,7 +108,32 @@ install.packages(c("crossdes", "BradleyTerry2", "sensR", "FactoMineR", "SensoMin
 | Pemicu kesukaan      | External Preference Mapping (PREFMAP)                                                                                                                                                    |
 | Diagnosa atribut     | Just-about-Right (JAR)                                                                                                                                                                   |
 | Produk ideal         | Ideal Profile Method (IPM)                                                                                                                                                               |
+
 ---
+class: inverse center middle
+
+# Analisis Uji Deskriptif
+
+---
+## Prinsip Analisis Data
+
+* Analisis lokal
+
+* Analisis Global
+
+---
+## Format Tabulasi Data
+
+---
+## Analysis of variance (ANOVA)
+
+**Model ANOVA:**
+`$$Y_{iks}=\mu+\alpha_i+\beta_k+\gamma_s+\alpha\beta_ik+\alpha\gamma_is+\beta\gamma_ks+\epsilon_{iks}$$`
+
+`$$\forall(i,k,s),\epsilon_{iks}\sim N(0,\sigma^2)$$`
+
+`$$\forall(i,k,s)\neq(i',k',s'), Cov(\epsilon_{iks}, \epsilon_{i'k's'}) = 0$$`
+
 
 # Hello Ninja
 
@@ -355,8 +384,8 @@ DT::datatable(
 )
 ```
 
-<div id="htmlwidget-b033f29c13caad35e335" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b033f29c13caad35e335">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2393798f3aeeefaf86e9" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-2393798f3aeeefaf86e9">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
