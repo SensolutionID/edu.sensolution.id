@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Lokakarya Analisis Data Sensoris</title>
+    <title>Presentation Ninja</title>
     <meta charset="utf-8">
-    <meta name="author" content="Bogor, 19-20 Desember 2018" />
+    <meta name="author" content="Yihui Xie" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link href="libs/remark-css/middlebury-fonts.css" rel="stylesheet" />
     <script src="libs/htmlwidgets/htmlwidgets.js"></script>
     <script src="libs/jquery/jquery.min.js"></script>
     <link href="libs/datatables-css/datatables-crosstalk.css" rel="stylesheet" />
@@ -13,19 +15,18 @@
     <script src="libs/dt-core/js/jquery.dataTables.min.js"></script>
     <link href="libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
     <script src="libs/crosstalk/js/crosstalk.min.js"></script>
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="sensolutionid-css.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Lokakarya Analisis Data Sensoris
-## Departemen ITP, Institut Pertanian Bogor
-### Bogor, 19-20 Desember 2018
+# Presentation Ninja
+## ⚔<br/>with xaringan
+### Yihui Xie
+### 2016/12/12 (updated: 2018-12-13)
 
 ---
-
-
 
 
 
@@ -33,107 +34,47 @@ class: center, middle, inverse, title-slide
 ---
 class: inverse, center, middle
 
-# Perangkat lunak
+# Pendahuluan
 
 ---
 
-## R + RStudio + paket
+# Hello World
 
-.pull-left[
-**R**
+Install the **xaringan** package from [Github](https://github.com/yihui/xaringan):
 
-- R merupakan bahasa pemrograman statistik dengan sumber terbuka
-- Tersedia untuk sistem operasi GNU/Linux, (Mac) OS X, dan Windows
-- Unduh R di [cran.r-project.org](https://cran.r-project.org). Gratis!
-- R dapat dijalankan melalui RGui (Windows dan OS X) dan terminal (GNU/Linux)
-]
 
-.pull-right[
-**RStudio**
-
-- Merupakan *Integrated Development Environtment* (IDE) untuk R
-- Menunjang alur kerja saat menggunakan R: manajemen R + paket, analisis data, hingga pelaporan
-- Tersedia untuk sistem operasi GNU/Linux, (Mac) OS X, dan Windows.
-- Unduh RStudio di [www.rtudio.com](https://rstudio.com). Gratis!
-]
-
-&lt;hr&gt;
-
-**Paket**
-
-- Merupakan ekstensi untuk meningkatkan fungsionalitas R. Banyak yan bersifat spesifik pada bidang keilmuan tertentu.
-- Cara memasang: `install.packages("nama_paket")`
-- Beberapa paket untuk ilmu sensoris:
-``` r
-install.packages(c("crossdes", "BradleyTerry2", "sensR", "FactoMineR", "SensoMineR"))
+```r
+devtools::install_github("yihui/xaringan")
 ```
 
----
-## SenseHub
+--
 
-- Aplikasi untuk analisis sensoris yang dikembangkan oleh [Sensolution.ID](https://sensolution.id)
-- Dikembangkan dengan basis bahasa R
-- Bekerja di *server* secara *cloud*, bisa diakses dimana saja tanpa pemasangan di komputer
-- Meliputi metode sensoris konvensional dan mutakhir
-- 21+ metode analisis, akan terus bertambah!
-- Dalam Bahasa Indonesia
-- Tampilan sederhana dan intuitif
+You are recommended to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
+
+- Create a new R Markdown document from the menu `File -&gt; New File -&gt; R Markdown -&gt; From Template -&gt; Ninja Presentation`;&lt;sup&gt;1&lt;/sup&gt;
 
 --
 
-.pull-left[
- **Versi:**
-- **SenseHub - Basic** merupakan versi demo dengan fitur yang terbatas. SenseHub - Basic dapat diakses di [s.id/sensehub_basic](https://s.id/sensehub_basic)
-- **SenseHub - Pro** merupakan versi penuh dengan fitur lengkap. SenseHub - Pro dapat diakses di [sensehub.sensolution.id](https://sensehub.sensolution.id)
-]
+- Click the `Knit` button to compile it;
 
 --
 
-.pull-right[
-**Registrasi SenseHub - Pro:**
-1. Buka laman [sensehub.sensolution.id](https://sensehub.sensolution.id)
-2. Registrasi dengan mengisi alamat surel dan kata sandi yang diinginkan
-3. Verifikasi dengan cara klik pranala yang dikirimkan melalui surel
+- or use the [RStudio Addin](https://rstudio.github.io/rstudioaddins/)&lt;sup&gt;2&lt;/sup&gt; "Infinite Moon Reader" to live preview the slides (every time you update and save the Rmd document, the slides will be automatically reloaded in RStudio Viewer.
+
+.footnote[
+[1] 中文用户请看[这份教程](http://slides.yihui.name/xaringan/zh-CN.html)
+
+[2] See [#2](https://github.com/yihui/xaringan/issues/2) if you do not see the template or addin in RStudio.
 ]
 
 ---
-## Fitur SenseHub
-| Kategori             | Fitur                                                                                                                                                                                    |
-|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Rancangan penelitian | Percangan penelitian (William Latin Square Design)                                                                                                                                       |
-| Kinerja panel        | Pengujian kinerja panel (grup), penujian kinerja panelis (individu)                                                                                                                      |
-| Uji diskriminatif    | 2-Alternatives Force Choice (2AFC), 3-Alternatives Force Choice (3AFC), Duo-Trio, Triangle, Tetrad, Hexad, Two-out-of-Five                                                               |
-| Uji deskriptif       | Quantitative Descriptive Analysis (QDA), Flash Profiling (FP), Free-Choice Profiling (FCP), Rate-all-that-Apply (RATA), Check-all-that-Apply (CATA), RATA as CATA, Sorting Task, Napping |
-| Uji afektif          | Acceptance test, Paired Preference, Multiple Paired Preference, Preference Ranking, Hedonic Rating, Internal Preference Mapping (MDPREF)                                                 |
-| Pemicu kesukaan      | External Preference Mapping (PREFMAP)                                                                                                                                                    |
-| Diagnosa atribut     | Just-about-Right (JAR)                                                                                                                                                                   |
-| Produk ideal         | Ideal Profile Method (IPM)                                                                                                                                                               |
+background-image: url(https://github.com/yihui/xaringan/releases/download/v0.0.2/karl-moustache.jpg)
+background-position: 50% 50%
+class: center, bottom, inverse
+
+# You only live once!
 
 ---
-class: inverse center middle
-
-# Analisis Uji Deskriptif
-
----
-## Prinsip Analisis Data
-
-* Analisis lokal
-
-* Analisis Global
-
----
-## Format Tabulasi Data
-
----
-## Analysis of variance (ANOVA)
-
-**Model ANOVA:**
-`$$Y_{iks}=\mu+\alpha_i+\beta_k+\gamma_s+\alpha\beta_ik+\alpha\gamma_is+\beta\gamma_ks+\epsilon_{iks}$$`
-
-`$$\forall(i,k,s),\epsilon_{iks}\sim N(0,\sigma^2)$$`
-
-`$$\forall(i,k,s)\neq(i',k',s'), Cov(\epsilon_{iks}, \epsilon_{i'k's'}) = 0$$`
-
 
 # Hello Ninja
 
@@ -185,7 +126,7 @@ Provides an R Markdown output format `xaringan::moon_reader` as a wrapper for re
 ---
 title: "A Cool Presentation"
 output:
-  xaringan::moon_reader
+  xaringan::moon_reader:
     yolo: true
     nature:
       autoplay: 30000
@@ -384,8 +325,8 @@ DT::datatable(
 )
 ```
 
-<div id="htmlwidget-2393798f3aeeefaf86e9" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-2393798f3aeeefaf86e9">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-909d24846dbc23139660" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-909d24846dbc23139660">{"x":{"filter":"none","fillContainer":false,"data":[["1","2","3","4","5","6","7","8","9","10"],[5.1,4.9,4.7,4.6,5,5.4,4.6,5,4.4,4.9],[3.5,3,3.2,3.1,3.6,3.9,3.4,3.4,2.9,3.1],[1.4,1.4,1.3,1.5,1.4,1.7,1.4,1.5,1.4,1.5],[0.2,0.2,0.2,0.2,0.2,0.4,0.3,0.2,0.2,0.1],["setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa","setosa"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Sepal.Length<\/th>\n      <th>Sepal.Width<\/th>\n      <th>Petal.Length<\/th>\n      <th>Petal.Width<\/th>\n      <th>Species<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":8,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[8,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
 
 ---
 
@@ -436,6 +377,31 @@ DT::datatable(
     ```
 
     Then you will see a timer counting down from `01:00`, to `00:59`, `00:58`, ... When the time is out, the timer will continue but the time turns red.
+    
+---
+
+# Some Tips
+
+- The title slide is created automatically by **xaringan**, but it is just another remark.js slide added before your other slides.
+
+    The title slide is set to `class: center, middle, inverse, title-slide` by default. You can change the classes applied to the title slide with the `titleSlideClass` option of `nature` (`title-slide` is always applied).
+
+    ```yaml
+    output:
+      xaringan::moon_reader:
+        nature:
+          titleSlideClass: [top, left, inverse]
+    ```
+    
+--
+
+- If you'd like to create your own title slide, disable **xaringan**'s title slide with the `seal = FALSE` option of `moon_reader`.
+
+    ```yaml
+    output:
+      xaringan::moon_reader:
+        seal: false
+    ```
 
 ---
 
@@ -526,6 +492,31 @@ ggplot(mtcars) +
 * geom_point() +
 * geom_smooth()
 ```
+
+---
+
+# Some Tips
+
+When you enable line-highlighting, you can also use the chunk option `highlight.output` to highlight specific lines of the text output from a code chunk. For example, `highlight.output = TRUE` means highlighting all lines, and `highlight.output = c(1, 3)` means highlighting the first and third line.
+
+````md
+```{r, highlight.output=c(1, 3)}
+head(iris)
+```
+````
+
+
+```
+*##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+*## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+```
+
+Question: what does `highlight.output = c(TRUE, FALSE)` mean? (Hint: think about R's recycling of vectors)
 
 ---
 
@@ -643,6 +634,10 @@ names(xaringan:::list_css())
 ## [28] "uol"
 ```
 
+---
+
+# Themes
+
 To use a theme, you can specify the `css` option as an array of CSS filenames (without the `.css` extensions), e.g.,
 
 ```yaml
@@ -725,12 +720,9 @@ The chakra comes from [remark.js](https://remarkjs.com), [**knitr**](http://yihu
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightLanguage": "r",
 "highlightStyle": "github",
 "highlightLines": true,
-"countIncrementalSlides": false,
-"slideNumberFormat": "<div class=\"progress-bar-container\">   <div class=\"progress-bar\" style=\"width: calc(%current% / %total% * 100%);\">   </div> </div>`"
+"countIncrementalSlides": false
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

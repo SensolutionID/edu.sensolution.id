@@ -93,9 +93,9 @@ a, a > code {
 }
 .title-slide {
   background-color: #ffffff;
-  background-image: url(assets/logo_sensolution.id.png);
+  background-image: url(assets/logo.svg);
   background-size: 450px;
-  background-position: 17% 35%;
+  background-position: 15% 35%;
 }
 .title-slide .remark-slide-number {
   display: none;

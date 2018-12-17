@@ -1,0 +1,12 @@
+name: tutorial
+title: tutorial
+username:
+account: aswansyahputra
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 617403
+bundleId: 1764604
+url: https://aswansyahputra.shinyapps.io/tutorial/
+when: 1544840231.31094
+asMultiple: FALSE
+asStatic: FALSE

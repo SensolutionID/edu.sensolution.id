@@ -1,204 +1,65 @@
 ---
-title: "Lokakarya Analisis Data Sensoris"
-subtitle: "Departemen ITP, Institut Pertanian Bogor"  
-author: "Bogor, 19-20 Desember 2018"
+title: "Presentation Ninja"
+subtitle: "⚔<br/>with xaringan"
+author: "Yihui Xie"
+date: "2016/12/12 (updated: `r Sys.Date()`)"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: xaringan-themer.css
+    css: [default, middlebury-fonts, sensolutionid-css.css]
     nature:
-      ratio: '16:9'
-      highlightLanguage: r
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-      slideNumberFormat: |
-        <div class="progress-bar-container">
-          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
-          </div>
-        </div>`
 ---
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
 ```
 
-```{r xaringan-themer, include=FALSE}
-library(xaringanthemer)
-extra_css <- list(
-  ".title-slide h1" = list(
-    "padding-top" = "250px",
-    "font-weight" = "normal",
-    "font-size" = "45px",
-    "line-height" = "0.05",
-    "text-align" = "left",
-    "text-shadow" = "none",
-    "padding-bottom" = "18px",
-    "margin-bottom" = "18px"
-  ),
-  ".title-slide h2" = list(
-    "color" = "#2c89a0",
-    "font-size" = "35px",
-    "text-align" = "left",
-    "text-shadow" = "none",
-    "padding-top" = "0px",
-    "margin-top" = "0px"
-  ),
-  ".title-slide h3" = list(
-    "color" = "#37c871",
-    "font-size" = "28px",
-    "font-weight" = "normal",
-    "text-align" = "left",
-    "text-shadow" = "none",
-    "padding" = "0px",
-    "margin" = "0px",
-    "line-height" = "1"
-  ),
-  ".title-slide .remark-slide-number" = list(
-    "text-shadow" = "none"
-  ),
-  ".remark-slide-number" = list(
-    "position" = "inherit"
-  ),
-  "remark-slide-number .progress-bar-container" = list(
-    "position" =  "absolute",
-    "bottom" = "0",
-    "height" = "8px",
-    "display" = "block",
-    "left" = "0",
-    "right" = "0"
-  ),
-  ".remark-slide-number .progress-bar" = list(
-    "height" = "100%",
-    "background-color" =  "#37c871"
-  ),
-  ".remark-slide-content" = list(
-    "padding-left" =  "100px"
-  )
-)
-
-write_xaringan_theme(
-  code_font_family = "Fira Code",
-  code_font_url    = "https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css",
-  title_slide_background_image = "assets/logo_sensolution.id.png",
-  title_slide_background_size = "450px",
-  title_slide_background_position = "17% 35%",
-  title_slide_background_color = "#ffffff",
-  title_slide_text_color = "#162c4f",
-  inverse_background_color = "#162c4f",
-  header_color = "#2c89a0",
-  header_font_google = google_font("Lato"),
-  header_h1_font_size = "70px",
-  text_color = "#333333",
-  table_row_even_background_color = "#e5feef",
-  extra_css = extra_css
-)
-```
-
 ---
 class: inverse, center, middle
 
-# Perangkat lunak
+# Pendahuluan
 
 ---
 
-## R + RStudio + paket
+# Hello World
 
-.pull-left[
-**R**
+Install the **xaringan** package from [Github](https://github.com/yihui/xaringan):
 
-- R merupakan bahasa pemrograman statistik dengan sumber terbuka
-- Tersedia untuk sistem operasi GNU/Linux, (Mac) OS X, dan Windows
-- Unduh R di [cran.r-project.org](https://cran.r-project.org). Gratis!
-- R dapat dijalankan melalui RGui (Windows dan OS X) dan terminal (GNU/Linux)
-]
-
-.pull-right[
-**RStudio**
-
-- Merupakan *Integrated Development Environtment* (IDE) untuk R
-- Menunjang alur kerja saat menggunakan R: manajemen R + paket, analisis data, hingga pelaporan
-- Tersedia untuk sistem operasi GNU/Linux, (Mac) OS X, dan Windows.
-- Unduh RStudio di [www.rtudio.com](https://rstudio.com). Gratis!
-]
-
-<hr>
-
-**Paket**
-
-- Merupakan ekstensi untuk meningkatkan fungsionalitas R. Banyak yan bersifat spesifik pada bidang keilmuan tertentu.
-- Cara memasang: `install.packages("nama_paket")`
-- Beberapa paket untuk ilmu sensoris:
-``` r
-install.packages(c("crossdes", "BradleyTerry2", "sensR", "FactoMineR", "SensoMineR"))
+```{r eval=FALSE, tidy=FALSE}
+devtools::install_github("yihui/xaringan")
 ```
 
----
-## SenseHub
+--
 
-- Aplikasi untuk analisis sensoris yang dikembangkan oleh [Sensolution.ID](https://sensolution.id)
-- Dikembangkan dengan basis bahasa R
-- Bekerja di *server* secara *cloud*, bisa diakses dimana saja tanpa pemasangan di komputer
-- Meliputi metode sensoris konvensional dan mutakhir
-- 21+ metode analisis, akan terus bertambah!
-- Dalam Bahasa Indonesia
-- Tampilan sederhana dan intuitif
+You are recommended to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
+
+- Create a new R Markdown document from the menu `File -> New File -> R Markdown -> From Template -> Ninja Presentation`;<sup>1</sup>
 
 --
 
-.pull-left[
- **Versi:**
-- **SenseHub - Basic** merupakan versi demo dengan fitur yang terbatas. SenseHub - Basic dapat diakses di [s.id/sensehub_basic](https://s.id/sensehub_basic)
-- **SenseHub - Pro** merupakan versi penuh dengan fitur lengkap. SenseHub - Pro dapat diakses di [sensehub.sensolution.id](https://sensehub.sensolution.id)
-]
+- Click the `Knit` button to compile it;
 
 --
 
-.pull-right[
-**Registrasi SenseHub - Pro:**
-1. Buka laman [sensehub.sensolution.id](https://sensehub.sensolution.id)
-2. Registrasi dengan mengisi alamat surel dan kata sandi yang diinginkan
-3. Verifikasi dengan cara klik pranala yang dikirimkan melalui surel
+- or use the [RStudio Addin](https://rstudio.github.io/rstudioaddins/)<sup>2</sup> "Infinite Moon Reader" to live preview the slides (every time you update and save the Rmd document, the slides will be automatically reloaded in RStudio Viewer.
+
+.footnote[
+[1] 中文用户请看[这份教程](http://slides.yihui.name/xaringan/zh-CN.html)
+
+[2] See [#2](https://github.com/yihui/xaringan/issues/2) if you do not see the template or addin in RStudio.
 ]
 
 ---
-## Fitur SenseHub
-| Kategori             | Fitur                                                                                                                                                                                    |
-|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Rancangan penelitian | Percangan penelitian (William Latin Square Design)                                                                                                                                       |
-| Kinerja panel        | Pengujian kinerja panel (grup), penujian kinerja panelis (individu)                                                                                                                      |
-| Uji diskriminatif    | 2-Alternatives Force Choice (2AFC), 3-Alternatives Force Choice (3AFC), Duo-Trio, Triangle, Tetrad, Hexad, Two-out-of-Five                                                               |
-| Uji deskriptif       | Quantitative Descriptive Analysis (QDA), Flash Profiling (FP), Free-Choice Profiling (FCP), Rate-all-that-Apply (RATA), Check-all-that-Apply (CATA), RATA as CATA, Sorting Task, Napping |
-| Uji afektif          | Acceptance test, Paired Preference, Multiple Paired Preference, Preference Ranking, Hedonic Rating, Internal Preference Mapping (MDPREF)                                                 |
-| Pemicu kesukaan      | External Preference Mapping (PREFMAP)                                                                                                                                                    |
-| Diagnosa atribut     | Just-about-Right (JAR)                                                                                                                                                                   |
-| Produk ideal         | Ideal Profile Method (IPM)                                                                                                                                                               |
+background-image: url(`r xaringan:::karl`)
+background-position: 50% 50%
+class: center, bottom, inverse
+
+# You only live once!
 
 ---
-class: inverse center middle
-
-# Analisis Uji Deskriptif
-
----
-## Prinsip Analisis Data
-
-* Analisis lokal
-
-* Analisis Global
-
----
-## Format Tabulasi Data
-
----
-## Analysis of variance (ANOVA)
-
-**Model ANOVA:**
-$$Y_{iks}=\mu+\alpha_i+\beta_k+\gamma_s+\alpha\beta_ik+\alpha\gamma_is+\beta\gamma_ks+\epsilon_{iks}$$
-
-$$\forall(i,k,s),\epsilon_{iks}\sim N(0,\sigma^2)$$
-
-$$\forall(i,k,s)\neq(i',k',s'), Cov(\epsilon_{iks}, \epsilon_{i'k's'}) = 0$$
-
 
 # Hello Ninja
 
@@ -250,7 +111,7 @@ Provides an R Markdown output format `xaringan::moon_reader` as a wrapper for re
 ---
 title: "A Cool Presentation"
 output:
-  xaringan::moon_reader
+  xaringan::moon_reader:
     yolo: true
     nature:
       autoplay: 30000
@@ -422,6 +283,31 @@ DT::datatable(
     ```
 
     Then you will see a timer counting down from `01:00`, to `00:59`, `00:58`, ... When the time is out, the timer will continue but the time turns red.
+    
+---
+
+# Some Tips
+
+- The title slide is created automatically by **xaringan**, but it is just another remark.js slide added before your other slides.
+
+    The title slide is set to `class: center, middle, inverse, title-slide` by default. You can change the classes applied to the title slide with the `titleSlideClass` option of `nature` (`title-slide` is always applied).
+
+    ```yaml
+    output:
+      xaringan::moon_reader:
+        nature:
+          titleSlideClass: [top, left, inverse]
+    ```
+    
+--
+
+- If you'd like to create your own title slide, disable **xaringan**'s title slide with the `seal = FALSE` option of `moon_reader`.
+
+    ```yaml
+    output:
+      xaringan::moon_reader:
+        seal: false
+    ```
 
 ---
 
@@ -506,6 +392,24 @@ ggplot(mtcars) +
   geom_point() +   #<<
   geom_smooth()    #<<
 ```
+
+---
+
+# Some Tips
+
+When you enable line-highlighting, you can also use the chunk option `highlight.output` to highlight specific lines of the text output from a code chunk. For example, `highlight.output = TRUE` means highlighting all lines, and `highlight.output = c(1, 3)` means highlighting the first and third line.
+
+````md
+`r ''````{r, highlight.output=c(1, 3)}
+head(iris)
+```
+````
+
+```{r, highlight.output=c(1, 3), echo=FALSE}
+head(iris)
+```
+
+Question: what does `highlight.output = c(TRUE, FALSE)` mean? (Hint: think about R's recycling of vectors)
 
 ---
 
@@ -608,6 +512,10 @@ Don't want to learn CSS? Okay, you can use some user-contributed themes. A theme
 ```{r}
 names(xaringan:::list_css())
 ```
+
+---
+
+# Themes
 
 To use a theme, you can specify the `css` option as an array of CSS filenames (without the `.css` extensions), e.g.,
 
