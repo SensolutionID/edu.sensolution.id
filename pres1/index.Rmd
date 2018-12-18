@@ -24,7 +24,9 @@ fitur_sensehub <- read.csv("assets/fitur_sensehub.csv")
 bias_psikologis <- read.csv("assets/bias_psikologis.csv")
 bias_fisiologis <- read.csv("assets/bias_fisiologis.csv")
 perfumes <- read.csv("data/perfumes_qda_expert.csv")
-
+perfumes$Product <- as.factor(perfumes$Product)
+perfumes$Panelist <- as.factor(perfumes$Panelist)
+perfumes$Session <- as.factor(perfumes$Session)
 library(agricolae)
 library(SensoMineR)
 library(tidyverse)
@@ -324,6 +326,11 @@ $$p_c = p_d + p_g(1-p_d)$$
 Model ini berfokus pada bagaimana produk dipersepsikan. Dalam model ini persamaan/perbedaan antara dua produk direpresentasikan sebagai jarak antar *perceptual distribution*. Parameter dalam model ini adalah pada nilai d' (d-prime).
 
 ---
+
+background-image: url("assets/perc_distribution.png")
+background-position: 50% 50%
+
+---
 class: left, bottom
 
 # Saatnya praktek!
@@ -395,7 +402,7 @@ anova(mod2)
 
 *Contoh:* Data QDA dari 12 parfum, 12 panelis terlatih, evaluasi dilakukan dalam 2 sesi. Analisis varian untuk atribut 'Citrus' dengan model `Citrus ~ Product + Panelist + Session + Product:Panelist + Product:Session + Panelist:Session`:
 
-```{r, highlight.output=c(6,7,9)}
+```{r, highlight.output=c(5,6,8)}
 mod3 <- lm(Citrus ~ Product + Panelist + Session + Product:Panelist + Product:Session + Panelist:Session, data = perfumes)
 anova(mod3)
 ```
@@ -403,7 +410,7 @@ anova(mod3)
 ---
 ### Analysis of variance (ANOVA)
 ** Perbandingan *Residual Sum of Square (RSS)* **
-```{r, highlight.output=c(8,9)}
+```{r, highlight.output=c(9,10)}
 anova(mod1, mod2, mod3)
 ```
 
@@ -483,12 +490,25 @@ res$resT$`J'adore EP`
 ```
 
 ---
+## Follow-up!
+Serta atribut apa saja yang menjadi karakteristik suatu sampel?
+
+--
+
+*Contoh sampel 'Chanel N5':*
+```{r}
+res <- decat(donnee = perfumes, formul = "~ Product + Panelist + Session + Product:Panelist + Product:Session + Panelist:Session", firstvar = 5, graph = FALSE)
+res$resT$`Chanel N5`
+```
+
+---
 class: center
 
 ```{r}
 res$adjmean %>% 
   tibble::as_tibble(rownames = "Product") %>% 
   mutate_at(vars(-Product), funs(scales::rescale)) %>% 
+  filter(Product %in% c("Angel", "J'adore EP", "Chanel N5")) %>% 
   ggradar()
 ```
 
