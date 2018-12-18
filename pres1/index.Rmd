@@ -128,7 +128,7 @@ background-position: 80% 50%
   - **Tesis:** Pengamatan proses oral menggunakan metode *Photoplethysmography* (PPG), 2018 (Spv.: Monica Mars, Christos Diou)
   - **Magang:** Pengembangan SenseHub - aplikasi web terintegrasi untuk analisis sensoris, 2018 (Spv.: Betina Piqueras-Fiszman, Kiki Fibrianto)
 + Minat:
- - Pemrograman R (inisiator komunitas R Indonesia)
+ - Pemrograman R (inisiator komunitas [R Indonesia](https://t.me/GNURIndonesia))
  - FLOSS
 ]
 
