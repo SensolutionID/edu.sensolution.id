@@ -345,7 +345,7 @@ class: inverse center middle
 
 **Analisis lokal**
 
-Analisis lokal dilakukan untuk mengamati bagaimana persepsi terhadap suatu atribut tertentu. **Crossmodal interaction** atau **multisensory perception** tidak diperhitungkan dalam analisis lokal. Uji statistik yang digunakan adalah statistik univariat dan bergantung pada jenis skala yang digunakan (kontinyu vs kategori). ANOVA, Chi-square, Friedman, Wilcoxon,...
+Analisis lokal dilakukan untuk mengamati bagaimana persepsi terhadap suatu atribut tertentu. **Crossmodal interaction** atau **multisensory perception** tidak diperhitungkan dalam analisis lokal. Uji statistik yang digunakan adalah statistik univariat dan bergantung pada jenis skala yang digunakan (kontinyu vs kategori). ANOVA, Chochran Q, Friedman, Wilcoxon,...
 
 **Analisis global**
 
