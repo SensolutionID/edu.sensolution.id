@@ -7,22 +7,28 @@ output:
     lib_dir: libs
     css: xaringan-themer.css
     nature:
-      ratio: '16:9'
+      ratio: "16:9"
       highlightLanguage: r
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
-      slideNumberFormat: |
-        <div class="progress-bar-container">
-          <div class="progress-bar" style="width: calc(%current% / %total% * 100%);">
-          </div>
-        </div>`
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-knitr::opts_chunk$set(eval = TRUE, echo = FALSE)
+options(contrasts = c("contr.sum", "contr.sum"))
+knitr::opts_chunk$set(eval = TRUE, echo = FALSE, comment = NA)
+fitur_sensehub <- read.csv("assets/fitur_sensehub.csv")
+bias_psikologis <- read.csv("assets/bias_psikologis.csv")
+bias_fisiologis <- read.csv("assets/bias_fisiologis.csv")
 perfumes <- read.csv("data/perfumes_qda_expert.csv")
+
+library(agricolae)
+library(SensoMineR)
+library(tidyverse)
+library(ggradar)
 ```
 
 ```{r xaringan-themer, include=FALSE}
@@ -60,20 +66,25 @@ extra_css <- list(
     "text-shadow" = "none"
   ),
   ".remark-slide-number" = list(
-    "position" = "inherit"
+    "position" = "inherit",
+    "font-size" =  "10pt",
+    "margin-bottom" =  "-11.6px",
+    "margin-right" =  "10px",
+    "color" =  "#FFFFFF",
+    "opacity" =  "0"
   ),
-  "remark-slide-number .progress-bar-container" = list(
-    "position" =  "absolute",
-    "bottom" = "0",
-    "height" = "8px",
-    "display" = "block",
-    "left" = "0",
-    "right" = "0"
-  ),
-  ".remark-slide-number .progress-bar" = list(
-    "height" = "100%",
-    "background-color" =  "#37c871"
-  ),
+  # "remark-slide-number .progress-bar-container" = list(
+  #   "position" =  "absolute",
+  #   "bottom" = "0",
+  #   "height" = "8px",
+  #   "display" = "block",
+  #   "left" = "0",
+  #   "right" = "0"
+  # ),
+  # ".remark-slide-number .progress-bar" = list(
+  #   "height" = "100%",
+  #   "background-color" =  "#37c871"
+  # ),
   ".remark-slide-content" = list(
     "padding-left" =  "100px"
   )
@@ -106,7 +117,7 @@ background-image: url("assets/aswan.jpg")
 background-size: 350px
 background-position: 80% 50%
 
-## Muhammad Aswan Syahputra
+##Muhammad Aswan Syahputra##
 
 .pull-left[
 + S1 Ilmu dan Teknologi Pangan, UB
@@ -138,6 +149,10 @@ background-size: contain
 
 ---
 
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/ef29dbc21e5d2122618cff0e346b76d3/e388bf62a52d' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
+
+---
+
 ## R + RStudio + paket
 
 .pull-left[
@@ -149,6 +164,8 @@ background-size: contain
 - R dapat dijalankan melalui RGui (Windows dan OS X) dan terminal (GNU/Linux)
 ]
 
+--
+
 .pull-right[
 **RStudio**
 
@@ -159,6 +176,8 @@ background-size: contain
 ]
 
 <hr>
+
+--
 
 **Paket**
 
@@ -202,16 +221,14 @@ background-position: 95% 5%
 
 ---
 ## Fitur SenseHub
-| Kategori             | Fitur                                                                                                                                                                                    |
-|----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Rancangan penelitian | Percangan penelitian (William Latin Square Design)                                                                                                                                       |
-| Kinerja panel        | Pengujian kinerja panel (grup), penujian kinerja panelis (individu)                                                                                                                      |
-| Uji diskriminatif    | 2-Alternatives Force Choice (2AFC), 3-Alternatives Force Choice (3AFC), Duo-Trio, Triangle, Tetrad, Hexad, Two-out-of-Five                                                               |
-| Uji deskriptif       | Quantitative Descriptive Analysis (QDA), Flash Profiling (FP), Free-Choice Profiling (FCP), Rate-all-that-Apply (RATA), Check-all-that-Apply (CATA), RATA as CATA, Sorting Task, Napping |
-| Uji afektif          | Acceptance test, Paired Preference, Multiple Paired Preference, Preference Ranking, Hedonic Rating, Internal Preference Mapping (MDPREF)                                                 |
-| Pemicu kesukaan      | External Preference Mapping (PREFMAP)                                                                                                                                                    |
-| Diagnosa atribut     | Just-about-Right (JAR)                                                                                                                                                                   |
-| Produk ideal         | Ideal Profile Method (IPM)                                                                                                                                                               |
+```{r}
+DT::datatable(
+  fitur_sensehub,
+  fillContainer = FALSE, 
+  options = list(pageLength = 8)
+)
+```
+
 ---
 class: inverse, center, middle
 
@@ -226,8 +243,8 @@ class: inverse, center, middle
 + Unduh skrip modul pada pranala [ini](https://my.pcloud.com/publink/show?code=kZcFIP7ZHKJHsoKptMF8VhzYcIp0IQpEaTW7). Unduh sebagai berkas *zip*.
 + Ekstrak berkas *zip* pada direktori komputer, misal pada 'My Documents'
 + Buka berkas **tutorialv2.Rproj** pada direktori yang telah di ekstrak dengan cara klik ganda
-+ (Rekomendasi) Pada RStudio, klik `Tools - Global Options... - Code`. Centang pilihan *Soft-wrap R source files*, kemudian klik OK.
-+ (Rekomendasi) Klik *icon* persegi (bentuk jendela) di sebelah kiri 'Addins, pilih *Console on right*
++ (Rekomendasi) Pada RStudio, klik `Tools - Global Options... - Code`. Centang pilihan *Soft-wrap R source files*, kemudian klik OK
++ (Rekomendasi) Klik *icon* persegi (bentuk jendela) di sebelah kiri *'Addins'*, pilih *Console on right*
 + Buka skrip modul dengan cara klik `File - Open File...` (misal: skrip '0.hal_dasar.R'), kemudian klik OK
 
 ]
@@ -249,47 +266,25 @@ class: inverse, center, middle
 
 ---
 ## Bias dalam penelitian sensoris
-
-### Faktor psikologi
-
-| Faktor bias | Deskripsi| Tips |
-| -------- | -------- | -------- |
-| Bias ekspektasi    | Disebabkan oleh adanya pengetahuan atau ekspektasi panelis mengenai sampel     | Tidak melibatkan panelis yang memahami sampel, memberikan informasi sampel seminimum mungkin, menggunakan kode acak tiga digit untuk identifikasi sampel   |
-|Efek sugesti | Disebabkan oleh komentar panelis lain ketika mencicipi sampel|Penggunaan bilik ketika evaluasi sensori, mengarahkan panelis untuk tidak berdiskusi dengan panelis lain|
-|Bias distraksi |Disebabkan oleh kondisi pengujian yang tidak kondusif (seperti bunyi lagu, radio, percakapan orang) dan kepentingan personal (terburu-buru)| Memastikan kondisi pengujian tenang, melarang penggunaan HP selama pengujian|
-|Bias stimulus dan logika|Disebabkan oleh adanya stimulus yang berasosiasi dengan karakter-karakter lain dari sampel (misal : sampel dengan warna yang lebih pucat memiliki kualitas yang lebih rendah)|Memastikan sampel yang disajikan memiliki kualitas yang konsisten|
-|Efek halo dan bias kedekatan| Terjadi ketika satu atribut mempengaruhi penilaian atribut lain (misal : sampel yang lebih manis dinilai lebih lembut atau *sticky*)| Apabila memungkinkan, atribut yang dievaluasi seminimum mungkin dalam sekali waktu; jika tidak memungkinkan, mengacak urutan atribut sampel|
-|*Attribute dumping*| Terjadi ketika panelis merasakan adanya perbedaan pada atribut tertentu, sedangkan atribut tersebut tidak dievaluasi. Perubahan atribut tersebut kemudian diasosiasikan menjadi atribut lain oleh panelis | Memaksimalkan jenis atribut yang dievaluasi|
-|Kebiasaan|Terjadi ketika panelis membentuk kebiasaan pemberian skor yang serupa|Meningkatkan variasi sampel|
-|Efek urutan|Kecenderungan panelis untuk memberi skor lebih tinggi pada sampel yang disajikan pertama.|Mengacak atau menyeimbangkan urutan penyajian sampel; pada uji afektif, sampel dengan kualitas yang dinilai lebih rendah, diletakkan pada urutan pertama|
-|Efek kontras dan konvergen |Jika dua sampel yang disajikan menunjukkan perbedaan yang besar, panelis cenderung melebih-lebihkan penilaian. Sedangkan jika sampel serupa disajikan dalam satu set sampel, panelis cenderung menilai kecil perbedaan sampel tersebut.|Mengacak dan menyeimbangkan urutan penyajian sampel; sampel yang bersifat *outlier* tidak diikutsertakan dalam evaluasi|
-|Bias kecenderungan sentral|Kecenderungan panelis untuk menghindari penilaian yang terlalu ekstrim, sehingga skor yang diberi cenderung skor rata-rata|Melatih penggunaan skala kepada panelis dan menggunakan skala dengan range yang cukup lebar sehingga sampel dapat lebih dibandingkan|
-|Bias motivasi|Kurangnya motivasi atau ketertarikan panelis dalam menjalankan pengujian|Memberi *feedback* (*reward*) kepada panelis yang terlibat
+**Psikologis**
+```{r}
+DT::datatable(
+  bias_psikologis,
+  fillContainer = FALSE, 
+  options = list(pageLength = 2)
+)
+```
 
 ---
-### Faktor Fisiologi
-
-| Faktor bias | Deskripsi| Tips |
-| -------- | -------- | -------- |
-|   Adaptasi | Penurunan sensitivitas indra akibat pengulangan stimulus    | Membatasi jumlah sampel, memastikan jeda waktu antar set dan sesi, menyediakan *palate cleanser* yang cocok untuk sampel |
-|Interaksi antar stimulan|Dapat berupa peningkatan, sinergi, supresi|Memahami pengaruh stimulan tunggal dan  ganda|
-|Kondisi fisik| Kondisi kesehatan | Menyeleksi panelis dengan memerhatikan faktor kondisi kesehatan, memberi instruksi kepada panelis untuk tidak makan paling tidak satu jam  sebelum evaluasi sensori, pelaksanaan evaluasi sensori dilakukan pada jam yang sama dari setiap harinya (lebih baik antara jam 10-12 siang), mengontrol performa panelis (usia, mood, demografi).
-
----
-## Jenis skala dalam ilmu sensoris
-
-Terdapat beberapa skala yang dapat digunakan :
-1. *Labelled Affective Magnitude* (LAM) : Skala rasio yang disertai dengan deskriptor pada skala hedonik 9 poin. Contoh dari skala LAM dapat dilihat sebagai berikut
-<!-- ![](https://i.imgur.com/gFEucns.jpg) -->
-<!-- Sumber : Lawless dan Heymann (2010) -->
-
-2. Kategori : Pada skala ini, konsumen diminta menilai intensitas atribut. Contoh dari skala kategori dapat dilihat sebagai berikut
-<!-- ![](https://i.imgur.com/5HtaHs4.jpg) -->
-<!-- Sumber : Kemp *et al*. (2009) -->
-
-3. *Likert* : Digunakan untuk mengetahui persepsi konsumen yang didasarkan pada derajat persetujuan atas pernyataan mengenai sampel ('setuju' hingga 'tidak setuju'). Contoh dari skala *Likert* dapat dilihat sebagai berikut
-<!-- ![](https://i.imgur.com/mwemqa7.jpg) -->
-<!-- Sumber : Lawless dan Heymann (2010) -->
+## Bias dalam penelitian sensoris
+**Faktor Fisiologis**
+```{r}
+DT::datatable(
+  bias_fisiologis,
+  fillContainer = FALSE, 
+  options = list(pageLength = 3)
+)
+```
 
 ---
 class: left, bottom
@@ -302,6 +297,38 @@ class: inverse center middle
 # Analisis Uji Diskriminatif
 
 ---
+## Beberapa jenis uji diskriminatif
+
+| Uji Holistik     | Produk       | Protokol                                                      | Probabilitas |
+|------------------|--------------|---------------------------------------------------------------|--------------|
+| Duo-trio         | Ref. vs A B  | Manakah yang serupa dengan referensi?                         | 1/2          |
+| Triangle         | A A B        | Manakah yang berbeda?                                         | 1/3          |
+| Tetrad           | A A B B      | Buatlah kelompok produk dalam dua kelompok yang isinya serupa | 1/3          |
+| **Uji Berorientasi** | **Produk**       | **Protokol**                                                      | **Probabilitas** |
+| 2-AFC            | A B          | Manakah yang paling ... ?                                     | 1/2          |
+| 3-AFC            | A A B        | Dari 3 produk yang disajikan, manakah yang paling ... ?       | 1/3          |
+| m-AFC            | A A A .. A B | Dari m produk yang disajikan, manakah yang paling ... ?       | 1/m          |
+| Specified Tetrad | A A B B      | Dua produk manakah yang paling ... ?                          | 1/3          |
+
+---
+## Model dalam uji diskriminatif
+
++ **Guessing Model**
+
+Model ini berfokus pada kemampuan panelis dalam mendeteksi perbedaan di antara produk. Dalam model ini panelis dikelompokan menjadi dua kategori: kelompok penebak dan kelompok pendeteksi. Parameter pada model ini adalah pada nilai p~d~ (proporsi diskriminator).
+
+$$p_c = p_d + p_g(1-p_d)$$
+
++ **Thurstonian Model**
+
+Model ini berfokus pada bagaimana produk dipersepsikan. Dalam model ini persamaan/perbedaan antara dua produk direpresentasikan sebagai jarak antar *perceptual distribution*. Parameter dalam model ini adalah pada nilai d' (d-prime).
+
+---
+class: left, bottom
+
+# Saatnya praktek!
+
+---
 class: inverse center middle
 
 # Analisis Uji Deskriptif
@@ -309,54 +336,82 @@ class: inverse center middle
 ---
 ## Prinsip Analisis Data
 
-* Analisis lokal
+**Analisis lokal**
 
-* Analisis Global
+Analisis lokal dilakukan untuk mengamati bagaimana persepsi terhadap suatu atribut tertentu. **Crossmodal interaction** atau **multisensory perception** tidak diperhitungkan dalam analisis lokal. Uji statistik yang digunakan adalah statistik univariat dan bergantung pada jenis skala yang digunakan (kontinyu vs kategori). ANOVA, Chi-square, Friedman, Wilcoxon,...
+
+**Analisis global**
+
+Analisis global dilakukan untuk mengamati persepsi secara holistik. Dalam analisis ini hubungan antar atribut tidak diabaikan sehingga **crossmodal interaction** atau **multisensory perception** dapat teramati. Uji statistik yang digunakan adalah statistik univariat dan bergantung pada jenis skala yang digunakan (kontinyu vs kategori). Contoh: PCA, CA, MFA, MCA, GPA...
 
 ---
 ## Format Tabulasi Data
 
+| Produk (1-i) | Panelis (1-k | Sesi (i-s) | Atribut 1 | Atribut.. |  Atribut j |
+|--------------|--------------|------------|-----------|-----------|------------|
+| Produk A     |  Panelis 1   | Sesi 1     |           |           |            |
+| Produk A     | Panelis 2    | Sesi 1     |           |           |            |
+| Produk A     |  Panelis 1   | Sesi 2     |           |           |            |
+| Produk A     | Panelis 2    | Sesi 2     |           |           |            |
+| Produk B     | Panelis 1    | Sesi 1     |           |           |            |
+| Produk B     | Panelis 2    | Sesi 1     |           |           |            |
+| Produk B     | Panelis 1    | Sesi 2     |           |           |            |
+| Produk B     | Panelis 2    | Sesi 2     |           |           |            |
+
 ---
 ### Analysis of variance (ANOVA)
 
-**Model sederhana:** `Atribut ~ Produk`
+**Model sederhana (model 1):** `Atribut ~ Produk`
 
 <!-- *Model ANOVA:* -->
 <!-- $$Y_{i}=\mu+\alpha_i+\epsilon_i$$ -->
 
 *Contoh:* Data QDA dari 12 parfum, 12 panelis terlatih, evaluasi dilakukan dalam 2 sesi. Analisis varian untuk atribut 'Citrus' dengan model `Citrus ~ Product`:
 ```{r, highlight.output=5}
-mod1 <- aov(Citrus ~ Product, data = perfumes)
+mod1 <- lm(Citrus ~ Product, data = perfumes)
 anova(mod1)
 ```
 
 
 ---
 ### Analysis of variance (ANOVA)
-**Peningkatan model:** `Atribut ~ Produk + Panelis`
+**Peningkatan model (model 2):** `Atribut ~ Produk + Panelis + Produk:Panelis`
 
 <!-- *Model ANOVA:*  -->
 <!-- $$Y_{ij}=\mu+\alpha_i+\beta_j+\epsilon_{ij}$$ -->
 
-*Contoh:* Data QDA dari 12 parfum, 12 panelis terlatih, evaluasi dilakukan dalam 2 sesi. Analisis varian untuk atribut 'Citrus' dengan model `Citrus ~ Product + Panelist`:
-```{r, highlight.output=c(5,6)}
-mod2 <- aov(Citrus ~ Product + Panelist, data = perfumes)
+*Contoh:* Data QDA dari 12 parfum, 12 panelis terlatih, evaluasi dilakukan dalam 2 sesi. Analisis varian untuk atribut 'Citrus' dengan model `Citrus ~ Product + Panelist + Product:Panelist`:
+```{r, highlight.output=c(5,6,7)}
+mod2 <- lm(Citrus ~ Product + Panelist + Product:Panelist, data = perfumes)
 anova(mod2)
 ```
 
 ---
 ### Analysis of variance (ANOVA)
-**Model kompleks:** `Atribut ~ Produk + Panelis + Sesi + Produk:Panelis + Produk:Sesi + Panelis:Sesi`
+**Model kompleks (model 3):** `Atribut ~ Produk + Panelis + Sesi + Produk:Panelis + Produk:Sesi + Panelis:Sesi`
 
 <!-- *Model ANOVA:* -->
 <!-- $$Y_{iks}=\mu+\alpha_i+\beta_k+\gamma_s+\alpha\beta_{ik}+\alpha\gamma_{is}+\beta\gamma_{ks}+\epsilon_{iks}$$ -->
 
 *Contoh:* Data QDA dari 12 parfum, 12 panelis terlatih, evaluasi dilakukan dalam 2 sesi. Analisis varian untuk atribut 'Citrus' dengan model `Citrus ~ Product + Panelist + Session + Product:Panelist + Product:Session + Panelist:Session`:
 
-```{r, highlight.output=c(5,6,8)}
-mod3 <- aov(Citrus ~ Product + Panelist + Session + Product:Panelist + Product:Session + Panelist:Session, data = perfumes)
+```{r, highlight.output=c(6,7,9)}
+mod3 <- lm(Citrus ~ Product + Panelist + Session + Product:Panelist + Product:Session + Panelist:Session, data = perfumes)
 anova(mod3)
 ```
+
+---
+### Analysis of variance (ANOVA)
+** Perbandingan *Residual Sum of Square (RSS)* **
+```{r, highlight.output=c(8,9)}
+anova(mod1, mod2, mod3)
+```
+
+** Perbandingan *Adjusted R-square* **
+
++ Model 1: `r summary(mod1)$adj.r.square`
++ Model 2: `r summary(mod2)$adj.r.square`
++ Model 3: `r summary(mod3)$adj.r.square`
 
 ---
 ### Analysis of variance (ANOVA)
@@ -372,10 +427,133 @@ $$\forall(i,k,s)\neq(i',k',s'), Cov(\epsilon_{iks}, \epsilon_{i'k's'}) = 0$$
 + $\alpha_i$ adalah koefisien ke-i berkaitan dengan efek **Produk**
 + $\beta_k$ adalah koefisien ke-k berkaitan dengan efek **Panelis**
 + $\gamma_s$ adalah koefisien ke-s berkaitan dengan efek **Sesi**
++ $\alpha\beta_{ik}$ adalah koefisien ke-ik berkaitan dengan interaksi **Produk-Panelis**
++ $\alpha\gamma_{is}$ adalah koefisien ke-is berkaitan dengan efek **Produk-Sesi**
++ $\beta\gamma_{ks}$ adalah koefisien ke-ks berkaitan dengan interaksi **Panelis-Sesi**
 
 ---
-## Post-hoc test
+## Follow-up!
+
+Berdasarkan hasil ANOVA dapat diketahui pada atribut apa sampel memiliki perbedaan. Namun, bagaimana cara mengetahui bagaimana tingkat perbedaan tersebut?
+
+--
+
+
+**Berdasarkan estimat/koefisien ANOVA (contoh model 1):**
+```{r}
+mod1x <- AovSum(Citrus ~ Product, data = perfumes)
+mod1x$Ttest[,-2]
+```
+
+---
+## Follow-up!
+
+Berdasarkan hasil ANOVA dapat diketahui pada atribut apa sampel memiliki perbedaan. Namun, bagaimana cara mengetahui bagaimana tingkat perbedaan tersebut?
+
+--
+
+
+**Menggunakan post-hoc test (contoh Tukey HSD pada model 3):**
+```{r}
+HSD.test(mod3, "Product")$groups
+```
+
+---
+## Follow-up!
+Serta atribut apa saja yang menjadi karakteristik suatu sampel?
+
+--
+
+*Contoh sampel 'Angel':*
+```{r}
+res <- decat(donnee = perfumes, formul = "~ Product + Panelist + Session + Product:Panelist + Product:Session + Panelist:Session", firstvar = 5, graph = FALSE)
+res$resT$Angel
+```
+
+---
+## Follow-up!
+Serta atribut apa saja yang menjadi karakteristik suatu sampel?
+
+--
+
+*Contoh sampel 'J'adore EP':*
+```{r}
+res <- decat(donnee = perfumes, formul = "~ Product + Panelist + Session + Product:Panelist + Product:Session + Panelist:Session", firstvar = 5, graph = FALSE)
+res$resT$`J'adore EP`
+```
+
+---
+class: center
+
+```{r}
+res$adjmean %>% 
+  tibble::as_tibble(rownames = "Product") %>% 
+  mutate_at(vars(-Product), funs(scales::rescale)) %>% 
+  ggradar()
+```
+
 
 ---
 ### Principal Component Analysis
+
+PCA dilaksanakan untuk merangkum informasi yang terdapat dalam data multivariat (banyak variabel) dalam bentuk representasi visual. Representasi visual tersebut mencakup representasi individu (sampel) dan representasi variabel (atribut sensoris). Data yang digunakan dalam PCA adalah data yang telah 'dikontraksi'
+
+| Produk (1-i) | Atribut 1 | Atribut ... | Atribut j |
+|--------------|-----------|-------------|-----------|
+| Produk 1     |           |             |           |
+| Produk 2     |           |             |           |
+| Produk ...   |           |             |           |
+| Produk i     |           |             |           |
+
+---
+### Principal Component Analysis
+
+Data multivariat dari berbagai variabel tersebut dirangkup dalam bentuk dimensi. Satu dimensi dapat terbentuk lebih dari satu variabel. Pemilihan fokus jumlah dimensi dapat berdasarkan 2 hal: **Persentase kumulatif varians** atau **nilai ambang eigenvalue**.
+
+```{r}
+res_pca <- PCA(res$adjmean, graph = FALSE)
+res_pca$eig %>% 
+  as_tibble(rownames = "Dim") %>% 
+  rename("Eigenvalues" = 2,
+         "Percent Variance" = 3,
+         "Percent Cum. Variance" = 4) %>% 
+  as.data.frame()
+```
+
+
+---
+class: center
+
+**Representasi individu (produk)**
+
+```{r}
+plot(res_pca, choix = "ind", title = "")
+```
+
+---
+class: center
+
+**Representasi variabel (atribut sensoris)**
+
+```{r}
+plot(res_pca, choix = "var")
+```
+
+---
+
+```{r}
+dimdesc(res_pca)
+```
+
+---
+class: left, bottom
+
+# Saatnya praktek!
+<!-- --- -->
+<!-- ```{r} -->
+<!-- par(mfrow = c(1,2)) -->
+<!-- plot(res_pca, choix = "ind") -->
+<!-- plot(res_pca, choix = "var") -->
+<!-- par(mfrow = c(1,1)) -->
+<!-- ``` -->
 
