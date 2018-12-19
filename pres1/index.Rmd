@@ -569,11 +569,188 @@ dimdesc(res_pca)
 class: left, bottom
 
 # Saatnya praktek!
-<!-- --- -->
-<!-- ```{r} -->
-<!-- par(mfrow = c(1,2)) -->
-<!-- plot(res_pca, choix = "ind") -->
-<!-- plot(res_pca, choix = "var") -->
-<!-- par(mfrow = c(1,1)) -->
-<!-- ``` -->
 
+---
+class: inverse center middle
+
+# Analisis Kinerja Panelis
+
+---
+## Kualitas panelis
+Kriteria pertimbangan kualitas panel dan panelis mencakup 3 hal utama, yaitu:
+
+1. **Discrimination ability** - apakah panelis memiliki kemampuan dalam menemukan perbedaan antar sampel?
+
+--
+
+2. **Repeatability/Reliability** - jika pengujian diulang dengan panel yang sama dan sampel yang sama, apakah panelis mampu memberikan penilaian yang sama atau mirip?
+
+--
+
+3. **Reproducibility/Consensus** - apakah panelis memberikan penilaian yang yang sama atau mirip dengan rata-rata penilaian oleh panel secara keseluruhan?
+
+---
+## Identifikasi kinerja panel
+**Model ANOVA:**
+$$Y_{iks}=\mu+\alpha_i+\beta_k+\gamma_s+\alpha\beta_{ik}+\alpha\gamma_{is}+\beta\gamma_{ks}+\epsilon_{iks},$$
+
+$$\forall(i,k,s),\epsilon_{iks}\sim N(0,\sigma^2)$$
+
+$$\forall(i,k,s)\neq(i',k',s'), Cov(\epsilon_{iks}, \epsilon_{i'k's'}) = 0$$
+
+--
+
++ $\alpha_i$ adalah koefisien ke-i berkaitan dengan efek **Produk** (**Discrimation abality**)
++ $\beta_k$ adalah koefisien ke-k berkaitan dengan efek **Panelis**
++ $\gamma_s$ adalah koefisien ke-s berkaitan dengan efek **Sesi**
++ $\alpha\beta_{ik}$ adalah koefisien ke-ik berkaitan dengan interaksi **Produk-Panelis** (**Reproducibility/Consensus**)
++ $\alpha\gamma_{is}$ adalah koefisien ke-is berkaitan dengan efek **Produk-Sesi** (**Repeatibility/Reliability**)
++ $\beta\gamma_{ks}$ adalah koefisien ke-ks berkaitan dengan interaksi **Panelis-Sesi**
+
+---
+## Bagaimana identifikasi kinerja per panelis?
+
+**Model ANOVA (2):**
+$$Y_{iks}=\mu+\alpha_i+\gamma_s+\epsilon_{is},$$
+
+$$\epsilon_{is}\sim N(0,\sigma^2)$$
+
+$$\forall(i,s)\neq(i',s'), Cov(\epsilon_{is}, \epsilon_{i's'}) = 0$$
+
+--
+1. **Discrimination ability** berdasarkan p-value dari F-test efek *Product*
+
+2. **Repeatability/Reliability**  berdasarkan nilai RMSE dari model 2
+
+3. **Reproducibility/Consensus** berdasarkan koefisien korelasi dari *adjusted mean of Product* antara model 1 (panel) dan model 2 (panelis)
+
+---
+class: left, bottom
+
+# Saatnya praktek (SenseHub)!
+
+---
+
+## Studi kasus
+
+Perusahaan A (produsen biskuit) memiliki 14 orang panelis internal terlatih. Cakupan kegiatan utama mereka adalah pada melakukan pemetaan produk perusahaan tersebut dan kompetitor, evaluasi apabila ada perubahaan bahan baku, dan pengembangan produk baru. Hasil evaluasi sensoris yang dilakukan oleh tim panelis tersebut menjadi landasan pengambilan keputusan dalam perusahaan tersebut. Oleh karena itu, pengukuran kinerja tim panel dan individu panelis penting untuk dilakukan. Dalam skenario ini, dilakukan evaluasi sensoris 9 produk biskuit komersial dengan menggunakan uji deskriptif dan menghasilkan data 'biscuit_prf.csv'. Lakukanlah analisis kinerja panel dan panelis dengan menggunakan SenseHub! Berilah interpretasi untuk parameter *dicrimination*, *repeatibility*, dan *reproducibility* panel dan panelis tersebut.
+
+---
+class: inverse center middle
+
+# Analisis Uji Afektif
+
+---
+## Kategori
+
+Uji afektif dapat dikelompokan menjadi 3 kategori, yaitu:
+
+--
+
+1. **Penerimaan**. Uji ini dilakukan untuk mengetahui informasi mengenai gambaran penerimaan konsumen terhadap produk tertentu. Analisis statistik yang digunakan adalam uji binomial satu arah.
+
+--
+
+2. **Preferesi**. Uji ini dilakukan untuk mengetahui informasi preferensi akan dua atau lebih pilihan produk, tanpa memperdulikan tingkat/skala hedonik. Contoh: **paired preference test**, **multiple paired preference test**, **preference ranking**, ...
+
+--
+
+3. **Tingkat kesukaan**. Uji ini dilakukan untuk mengukur tingkat atau skala kesukaan
+
+---
+class: left, bottom
+
+# Saatnya praktek!
+
+---
+
+## Studi kasus
+
+Sebuah perusahaan maskara ingin mengetahui preferensi konsumen terhadap 10 merek maskara komersial yang tersedia di pasaran. Merek maskara yang akan diujikan adalah *1001, Everlong, Extreme, Ex.vol, HD, Iconic, Le 2, Oscil., Pulse, dan Sexy*. 145 konsumen diundang untuk melakukan pengujian dengan menggunakan metode *multiple paired preference*. Lakukanlah analisis preferensi dengan menggunakan SenseHub pada data yang telah dikumpulkan (‘Data Multiple Paired Preference Maskara.csv’). Maskara manakah yang paling digemari dan kurang digemari?
+
+---
+class: inverse center middle
+
+# Ideal Profile Method
+
+---
+## Konsep
+
++ Berdasarkan ilmu sensoris, definisi **ideal** adalah produk dengan **karakteristik sensoris tertentu** yang dapat **memaksimalkan kesukaan**
+
+--
+
++ Berbeda dengan metode JAR, dalam metode IPM secara eksplisit ditanyakan mengenai karakteristik atau atribut ideal.
+
+--
+
++ Sehingga didapatkan informasi persepsi produk yang diujikan dan informasi persepsi produk ideal
+
+---
+## Format Tabulasi Data
+
+| Produk (1-i) | Panelis (1-k) | Atribut (1-j) | Atribut Ideal (1-j) | Kesukaan |
+|--------------|---------------|---------------|---------------------|----------|
+| Produk 1     | Panelis 1     |               |                     |          |
+| Produk 1     |  Panelis k    |               |                     |          |
+| Produk i     | Panelis 1     |               |                     |          |
+| Produk i     | Panelis k     |               |                     |          |
+
+---
+## Prosedur
+
++ Ensure that the ideal is making the link between sensory and
+hedonic (related to **Sensory consistency**)
+
+--
+
++ Define a model which explains liking based on the sensory and
+apply this model to the ideal product (related to **Hedonic consistency**)
+
+
+--
+
+
++ Consider both the deviation from ideal for each attribute and the
+weight of each attribute on liking
+
+-- 
+
+
++ Project on the sensory product space the ideal area of each
+consumer and define the area that is shared by the majority of
+consumers
+
+---
+## Prosedur statistik
+
+**Step 1:** the sensory and ideal variables are separated into two tables
+
+--
+
+**Step 2:** the product space is created by PCA on the averaged sensory table (averaged by product)
+
+--
+
+**Step 3:** the averaged ideal product of each consumer is projected as supplementary entities in this space
+
+--
+
+**Step 4:** confidence ellipses are created around each individual averaged ideal product using truncated total bootstrap
+
+--
+
+**Step 5:** for each consumer, the space is grid and the position where the ideal area is defined is marked: individual surfaces of response are created
+
+--
+
+**Step 6:** (optional) the ellipses can be balanced by applying individual weight
+
+--
+
+**Step 7:** all the individual surface plots are added together and a surface plot is created.
+
+---
+class: left, bottom
+
+# Saatnya demonstrasi!
