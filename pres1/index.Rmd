@@ -18,16 +18,19 @@ editor_options:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-options(contrasts = c("contr.sum", "contr.sum"))
+# options(contrasts = c("contr.sum", "contr.sum"))
 knitr::opts_chunk$set(eval = TRUE, echo = FALSE, comment = NA)
 fitur_sensehub <- read.csv("assets/fitur_sensehub.csv")
 bias_psikologis <- read.csv("assets/bias_psikologis.csv")
 bias_fisiologis <- read.csv("assets/bias_fisiologis.csv")
 perfumes <- read.csv("data/perfumes_qda_expert.csv")
+perfumes_jar <- read.csv("data/perfumes_jar.csv")
+
 perfumes$Product <- as.factor(perfumes$Product)
 perfumes$Panelist <- as.factor(perfumes$Panelist)
 perfumes$Session <- as.factor(perfumes$Session)
 library(agricolae)
+library(car)
 library(SensoMineR)
 library(tidyverse)
 library(ggradar)
@@ -687,6 +690,13 @@ class: inverse center middle
 + Sehingga didapatkan informasi persepsi produk yang diujikan dan informasi persepsi produk ideal
 
 ---
+background-image: url("assets/ipm_q.jpg")
+background-size: 700px
+background-position: 70% 50%
+
+## Kuesioner
+
+---
 ## Format Tabulasi Data
 
 | Produk (1-i) | Panelis (1-k) | Atribut (1-j) | Atribut Ideal (1-j) | Kesukaan |
@@ -754,3 +764,48 @@ consumers
 class: left, bottom
 
 # Saatnya demonstrasi!
+
+<!-- --- -->
+<!-- class: inverse center middle -->
+
+<!-- # Just-about-Right -->
+
+<!-- --- -->
+<!-- ## Data mentah -->
+<!-- ```{r} -->
+<!-- df <- perfumes_jar[, c("product", "jasmin", "liking")] -->
+<!-- head(df) -->
+<!-- ``` -->
+
+<!-- -- -->
+
+<!-- **Frekuensi:** -->
+<!-- ```{r} -->
+<!-- round(100*prop.table(table(df$product, df$jasmin),margin = 1), 2) -->
+<!-- ``` -->
+
+<!-- ## Transormasi -->
+<!-- ```{r} -->
+<!-- df$jasmin <- recode(df$jasmin, recodes = "c(-2,-1)='low'; 0='jar'; c(1,2)='high'", as.factor = TRUE) -->
+<!-- df$jasmin <- relevel(df$jasmin, ref = 'jar') -->
+<!-- head(df) -->
+<!-- ``` -->
+
+<!-- -- -->
+
+<!-- **Frekuensi:** -->
+<!-- ```{r} -->
+<!-- round(100*prop.table(table(df$product, df$jasmin),margin = 1), 2) -->
+<!-- ``` -->
+
+<!-- --- -->
+<!-- ## ANOVA -->
+<!-- ```{r} -->
+<!-- mod <- lm(liking ~ jasmin, data = df) -->
+<!-- anova(mod) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- summary(mod) -->
+<!-- ``` -->
+
