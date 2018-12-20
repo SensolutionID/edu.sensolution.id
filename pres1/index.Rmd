@@ -845,3 +845,13 @@ summary(mod)$coefficients
 class: left, bottom
 
 # Saatnya praktek!
+
+---
+
+<div style='position: relative; padding-bottom: 56.25%; padding-top: 35px; height: 0; overflow: hidden;'><iframe allowfullscreen='true' allowtransparency='true' frameborder='0' height='315' src='https://www.mentimeter.com/embed/79a3f989e15e116ab9cd97234dbbc3b3/10570e262539' style='position: absolute; top: 0; left: 0; width: 100%; height: 100%;' width='420'></iframe></div>
+
+---
+class: inverse, middle, center
+
+# Terimakasih!
+## Semoga ilmunya bisa bermanfaat..
