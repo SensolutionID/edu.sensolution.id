@@ -765,47 +765,83 @@ class: left, bottom
 
 # Saatnya demonstrasi!
 
-<!-- --- -->
-<!-- class: inverse center middle -->
+---
+class: inverse center middle
 
-<!-- # Just-about-Right -->
+# Just-about-Right
 
-<!-- --- -->
-<!-- ## Data mentah -->
-<!-- ```{r} -->
-<!-- df <- perfumes_jar[, c("product", "jasmin", "liking")] -->
-<!-- head(df) -->
-<!-- ``` -->
+---
+background-image: url("assets/jar_q.png")
+background-size: 700px
+background-position: 70% 50%
 
-<!-- -- -->
+## Kuesioner
 
-<!-- **Frekuensi:** -->
-<!-- ```{r} -->
-<!-- round(100*prop.table(table(df$product, df$jasmin),margin = 1), 2) -->
-<!-- ``` -->
+---
+## Format Tabulasi Data
 
-<!-- ## Transormasi -->
-<!-- ```{r} -->
-<!-- df$jasmin <- recode(df$jasmin, recodes = "c(-2,-1)='low'; 0='jar'; c(1,2)='high'", as.factor = TRUE) -->
-<!-- df$jasmin <- relevel(df$jasmin, ref = 'jar') -->
-<!-- head(df) -->
-<!-- ``` -->
+| Produk (1-i) | Panelis (1-k) | Atribut 1 | Atribut (..-j) | Kesukaan |
+|--------------|---------------|---------------|---------------------|----------|
+| Produk 1     | Panelis 1     |               |                     |          |
+| Produk 1     |  Panelis k    |               |                     |          |
+| Produk i     | Panelis 1     |               |                     |          |
+| Produk i     | Panelis k     |               |                     |          |
 
-<!-- -- -->
+---
 
-<!-- **Frekuensi:** -->
-<!-- ```{r} -->
-<!-- round(100*prop.table(table(df$product, df$jasmin),margin = 1), 2) -->
-<!-- ``` -->
+## Data mentah
+```{r}
+df <- perfumes_jar[, c("product", "intensity", "jasmin", "liking")]
+head(df)
+```
 
-<!-- --- -->
-<!-- ## ANOVA -->
-<!-- ```{r} -->
-<!-- mod <- lm(liking ~ jasmin, data = df) -->
-<!-- anova(mod) -->
-<!-- ``` -->
+--
 
-<!-- ```{r} -->
-<!-- summary(mod) -->
-<!-- ``` -->
+**Frekuensi:**
+```{r}
+head(round(100*prop.table(table(df$product, df$intensity),margin = 1), 2))
+```
 
+---
+## Transormasi
+```{r}
+df$intensity <- car::recode(df$intensity, recodes = "c(-2,-1)='low'; 0='jar'; c(1,2)='high'", as.factor = TRUE)
+df$intensity <- relevel(df$intensity, ref = 'jar')
+df$jasmin <- car::recode(df$jasmin, recodes = "c(-2,-1)='low'; 0='jar'; c(1,2)='high'", as.factor = TRUE)
+df$jasmin <- relevel(df$jasmin, ref = 'jar')
+head(df)
+```
+
+--
+
+**Frekuensi:**
+```{r}
+head(round(100*prop.table(table(df$product, df$intensity),margin = 1), 2))
+```
+
+---
+
+## ANOVA
+### Angel
+**intensity:**
+```{r}
+mod <- lm(liking ~ intensity, data = df[df$product == "Angel",])
+anova(mod)
+summary(mod)$coefficients
+```
+
+---
+##ANOVA
+### Angel
+
+**jasmin:**
+```{r}
+mod <- lm(liking ~ jasmin, data = df[df$product == "Angel",])
+anova(mod)
+summary(mod)$coefficients
+```
+
+---
+class: left, bottom
+
+# Saatnya praktek!
